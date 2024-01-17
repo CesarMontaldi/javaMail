@@ -30,7 +30,7 @@ public class EmailSend {
 	}
 
 
-	public void EnviarEmail() {
+	public void EnviarEmail(boolean envioHtml) {
 
 		try {
 			Properties properties = new Properties();
@@ -57,8 +57,13 @@ public class EmailSend {
 			message.setFrom(new InternetAddress(userName, nomeRemetente));/* Quem está enviando */
 			message.setRecipients(Message.RecipientType.TO, toUser);/* Email destinatario */
 			message.setSubject(assuntoEmail);/* Assunto do e-mail */
-			message.setText(textoEmail);
-
+			
+			if (envioHtml) {
+				message.setContent(textoEmail, "text/html; charset=UTF-8");
+			}else {
+				message.setText(textoEmail);
+			}
+			
 			Transport.send(message);
 
 			System.out.println("E-mail enviado!");
