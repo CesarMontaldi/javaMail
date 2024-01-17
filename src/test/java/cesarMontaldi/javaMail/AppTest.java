@@ -5,7 +5,7 @@ import org.junit.Test;
 public class AppTest {
 	
 	@Test
-	public void emailTest() throws Exception {
+	public void emailTest() {
 		
 		StringBuilder stringBuilder = new StringBuilder();
 		
@@ -25,7 +25,7 @@ public class AppTest {
 											stringBuilder.toString());
 		
 		
-		emailSend.EnviarEmail(true);
+		emailSend.EnviarEmailAnexo(true);
 	} 
 	
 }
