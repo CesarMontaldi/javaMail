@@ -1,5 +1,8 @@
 package cesarMontaldi.javaMail;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.Properties;
 
 import javax.mail.Address;
@@ -10,6 +13,10 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 
 public class EmailSend {
 
@@ -30,9 +37,8 @@ public class EmailSend {
 	}
 
 
-	public void EnviarEmail(boolean envioHtml) {
+	public void EnviarEmail(boolean envioHtml) throws Exception{
 
-		try {
 			Properties properties = new Properties();
 			properties.put("mail.smtp.ssl.trust", "*");/* Autenticação SSL */
 			properties.put("mail.smtp.auth", "true");/* Autorização */
@@ -65,12 +71,27 @@ public class EmailSend {
 			}
 			
 			Transport.send(message);
-
+			
 			System.out.println("E-mail enviado!");
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	}
+	
+	/*Método simula o PDF ou qualquer arquivo que possa ser enviado por anexo no e-mail.*/
+	/*Pode estar em um banco de dados, ou em uma pasta.*/
+	private FileInputStream simuladorDePDF() throws Exception {
+		
+		Document document = new Document();
+		File file = new File("fileanexo.pdf");
+		file.createNewFile();
+		PdfWriter.getInstance(document, new FileOutputStream(file));
+		document.open();
+		document.add(new Paragraph("Conteudo do PDF anexo com Java Mail."));
+		document.close();
+		
+		return new FileInputStream(file);
 	}
 
 }
+
+
+

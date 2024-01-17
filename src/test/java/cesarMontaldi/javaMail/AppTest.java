@@ -5,7 +5,7 @@ import org.junit.Test;
 public class AppTest {
 	
 	@Test
-	public void emailTest() {
+	public void emailTest() throws Exception {
 		
 		StringBuilder stringBuilder = new StringBuilder();
 		
